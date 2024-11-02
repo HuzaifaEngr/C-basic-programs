@@ -2,143 +2,77 @@
 #include <conio.h>
 #include <math.h>
 
-int add(long x, long y)// addition 
-{
-    long result;
-    result = x + y;
-    return result;
+int add(long x, long y) { return x + y; }          // Addition
+int sub(long x, long y) { return x - y; }          // Subtraction
+int mul(long x, long y) { return x * y; }          // Multiplication
+int div(long x, long y) { return y != 0 ? x / y : 0; } // Division with zero check
+
+int power(long x, long y) {
+    return pow(x, y);                              // Power
 }
 
-int sub(long x, long y)// subtraction
-{
-    long result;
-    result = x - y;
-    return result;
+void table(long x) {
+    for (int i = 1; i <= 10; i++) {
+        printf(" %ld x %d = %ld\n", x, i, x * i);
+    }
 }
 
-int mul(long x, long y)// multiplication 
-{
-    long result;
-    result = x * y;
-    return result;
-}
-
-int div(long x, long y)// division
-{
-    long result;
-    result = x / y;
-    return result;
-}
-int power(long x , long y)// power
-{
-    long result;
-    result = pow(x , y);
-    return result;
-}
-int table(long x)
-{
-    long mul;
-    for (int i = 1; i <= 10; i++)
-    {
-        mul = x * i;
-        printf(" %d x %d\t= %d\n", x, i, mul);
-    } 
-}
-int fac(long x)
-{
+void fac(long x) {
     long q, d = 2;
-    for (int i = 1; i <= x;i++)
-    {
-        for (int j = 1; x % d != 0; j++)
-        {
+    while (x > 1) {
+        while (x % d != 0) {
             d++;
         }
-
-        printf(" %d\t|\t%d\n", d, x);
-        q = x / d;
-        x = q;
+        printf(" %ld\t|\t%ld\n", d, x);
+        x /= d;
     }
 }
 
-int main()
-{
+int main() {
     long n1, n2;
     char oper;
-    printf(" '+' for addition \n '-' for subtraction \n '*' for multiplication\n '/' for division \n 'p' for power \n 't' for table \n 'f' for factorization \n 'a' for print ASCII Table ");
-    printf("\n Enter the operation :");
-    scanf("%c",&oper);
-    if(oper == '+' || oper == '-' || oper == '*' || oper == '/' )
-    {
-        printf("\n Enter the first value :");
-        scanf("%d",&n1);
-        printf("\n Enter the second value :");
-        scanf("%d",&n2);
-    }
-    else if(oper == 'p')
-    {
-        printf("\nRemember base can only contains Numbers");
-        printf("\nEnter the base :");
-        scanf("%d", &n1);
-        printf("\nEnter the power :");
-        scanf("%d", &n2);
-    }
-    else if (oper == 't' || oper == 'f')
-    {
-        printf(" Enter a number :");
-        scanf("%d", &n1);
-    }
-    
-    if(oper == '+')
-    {
-        add(n1, n2);
-        printf("\n Result : %d", add(n1, n2));
-    }
-    else if(oper == '-')
-    {
-        sub(n1, n2);
-        printf("\n Result : %d", sub(n1, n2));
-    }
-    else if(oper == '*')
-    {
-        mul(n1, n2);
-        printf("\n Result : %d", mul(n1, n2));
-    }
-    else if(oper == '/')
-    {
-        div(n1, n2);
-        printf("\n Result : %d", div(n1, n2));
-    }
-    else if (oper == 'p')
-    {
-        power(n1, n2);
-        printf("\n Result :%d", power(n1, n2));
-    } 
-    else if (oper == 't')
-    {
-        table(n1);
-    }
-    else if (oper == 'f')
-    {
-        fac(n1);
-    }
-    else if (oper == 'a')
-    {
-        char a = ' ';
-        printf(" =============\n");
-        printf(" DEC.\tCHAR.\n");
-        printf(" =============\n");
+    printf(" '+' for addition \n '-' for subtraction \n '*' for multiplication\n '/' for division \n 'p' for power \n 't' for table \n 'f' for factorization \n 'a' for ASCII Table ");
+    printf("\n Enter the operation: ");
+    scanf(" %c", &oper);
 
-        printf(" 32.\tSP\n");
-        for (int i = 33; i <= 126; i++)
-        {
-            a++;
-            printf(" %d.\t%c\n", i, a);
-        }
-        printf(" 127.\tDEL\n");
+    if (oper == '+' || oper == '-' || oper == '*' || oper == '/') {
+        printf("\n Enter the first value: ");
+        scanf("%ld", &n1);
+        printf(" Enter the second value: ");
+        scanf("%ld", &n2);
+    } else if (oper == 'p') {
+        printf("\nEnter the base: ");
+        scanf("%ld", &n1);
+        printf("Enter the power: ");
+        scanf("%ld", &n2);
+    } else if (oper == 't' || oper == 'f') {
+        printf(" Enter a number: ");
+        scanf("%ld", &n1);
     }
-    else
-    {
-        printf("\n Invalid configuration !\n Please Re-Enter ");
+
+    switch (oper) {
+        case '+': printf("\n Result: %ld", add(n1, n2)); break;
+        case '-': printf("\n Result: %ld", sub(n1, n2)); break;
+        case '*': printf("\n Result: %ld", mul(n1, n2)); break;
+        case '/':
+            if (n2 != 0)
+                printf("\n Result: %ld", div(n1, n2));
+            else
+                printf("\n Division by zero is not allowed.");
+            break;
+        case 'p': printf("\n Result: %ld", power(n1, n2)); break;
+        case 't': table(n1); break;
+        case 'f': fac(n1); break;
+        case 'a':
+            printf(" =============\n DEC.\tCHAR.\n =============\n");
+            printf(" 32.\tSP\n");
+            for (int i = 33; i <= 126; i++) {
+                printf(" %d.\t%c\n", i, i);
+            }
+            printf(" 127.\tDEL\n");
+            break;
+        default: printf("\n Invalid operation! Please Re-Enter.");
     }
     getch();
+    return 0;
 }
