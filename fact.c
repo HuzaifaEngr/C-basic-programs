@@ -13,7 +13,7 @@ void main()
             d++;
         }
 
-        printf("%d\t|\t%d \n", d, n);
+        printf("%ld\t|\t%ld \n", d, n);
         n /= d;
     }
     getch();
