@@ -2,17 +2,25 @@
 #include <conio.h>
 #include <math.h>
 
-int add(long x, long y) { return x + y; }          // Addition
-int sub(long x, long y) { return x - y; }          // Subtraction
-int mul(long x, long y) { return x * y; }          // Multiplication
-int div(long x, long y) { return y != 0 ? x / y : 0; } // Division with zero check
+long add(long x, long y) { return x + y; }          // Addition
+long sub(long x, long y) { return x - y; }          // Subtraction
+long mul(long x, long y) { return x * y; }          // Multiplication
+long div(long x, long y) { return y != 0 ? x / y : 0; } // Division with zero check
 
-int power(long x, long y) {
+long power(long x, long y) {
     return pow(x, y);                              // Power
 }
 
+long factorial(long x) {
+    long f = 1;
+    for(long I = 1;I <= x;I++) {
+        f = f * I;
+    }
+    return f;
+}
+
 void table(long x) {
-    for (int i = 1; i <= 10; i++) {
+    for (long i = 1; i <= 10; i++) {
         printf(" %ld x %d = %ld\n", x, i, x * i);
     }
 }
@@ -31,7 +39,7 @@ void fac(long x) {
 int main() {
     long n1, n2;
     char oper;
-    printf(" '+' for addition \n '-' for subtraction \n '*' for multiplication\n '/' for division \n 'p' for power \n 't' for table \n 'f' for factorization \n 'a' for ASCII Table ");
+    printf(" '+' for addition \n '-' for subtraction \n '*' for multiplication\n '/' for division \n 'p' for power \n 't' for table \n 'f' for factorization \n 'a' for ASCII Table \n 'c' for factorial");
     printf("\n Enter the operation: ");
     scanf(" %c", &oper);
 
@@ -45,10 +53,10 @@ int main() {
         scanf("%ld", &n1);
         printf("Enter the power: ");
         scanf("%ld", &n2);
-    } else if (oper == 't' || oper == 'f') {
+    } else if (oper == 't' || oper == 'f' || oper == 'c') {
         printf(" Enter a number: ");
         scanf("%ld", &n1);
-    }
+    } 
 
     switch (oper) {
         case '+': printf("\n Result: %ld", add(n1, n2)); break;
@@ -67,9 +75,16 @@ int main() {
             printf(" =============\n DEC.\tCHAR.\n =============\n");
             printf(" 32.\tSP\n");
             for (int i = 33; i <= 126; i++) {
-                printf(" %d.\t%c\n", i, i);
+                printf(" %ld.\t%c\n", i, i);
             }
             printf(" 127.\tDEL\n");
+            break;
+        case 'c':
+            if (n1 < 0) {
+                printf("factorial of negative number is not defined \n");
+            } else {
+                printf("factorial of %ld is %ld \n", n1, factorial(n1));
+            }
             break;
         default: printf("\n Invalid operation! Please Re-Enter.");
     }
